@@ -6,6 +6,7 @@ from concurrent.futures import ProcessPoolExecutor
 import multiprocessing
 from collections import Counter
 import os
+import shutil
 
 class ElectricVehicle:
     def __init__(self, battery_size, max_soc, min_soc, consumption, commuter_type, battery_replacement_threshold, wfh_days):
@@ -33,6 +34,11 @@ class ElectricVehicle:
     def replace_battery(self):
         self.battery_size = self.initial_battery_size
         self.battery_replacements += 1
+
+def clean_output_folder(folder_path):
+    if os.path.exists(folder_path):
+        shutil.rmtree(folder_path)
+    os.makedirs(folder_path)
 
 def generate_trip_data(ev, C_dist, C_dept, C_arr, N_nc):
     trip_data = []
@@ -152,10 +158,10 @@ def simulate_vehicle(commuter_type, battery_replacement_threshold, vehicle_id, o
     return ev.battery_replacements
 
 def run_simulation(output_folder, num_vehicles):
-    os.makedirs(output_folder, exist_ok=True)
-    
+    clean_output_folder(output_folder)
+
     commuter_types = ["Classic", "Hybrid", "Freelancer"]
-    commuter_probabilities = [0.757, 0.117, 0.126]  # Exact probabilities as per the requirements
+    commuter_probabilities = [0.756, 0.103, 0.141]  # Exact probabilities as per the requirements for 2023
     battery_thresholds = [0.8, 0.7, 0.6]
     battery_threshold_probabilities = [0.1, 0.2, 0.7]
 
