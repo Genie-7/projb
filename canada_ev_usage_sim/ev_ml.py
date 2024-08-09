@@ -218,8 +218,8 @@ def main():
     data = load_and_preprocess_data('ev_simulation_output/results.csv')
     
     plot_commuter_types(data)
-    plot_usage_duration(data)
-    plot_daily_distance_vs_energy(data)
+    #plot_usage_duration(data)
+    #plot_daily_distance_vs_energy(data)
     plot_total_distance_by_commuter(data)
     plot_usage_duration_vs_energy(data)
     
@@ -227,13 +227,13 @@ def main():
     total_lithium_demand = calculate_lithium_demand(data, lithium_per_battery)
     plot_lithium_demand(total_lithium_demand)
     
-    analyze_efficiency(data)
+    #analyze_efficiency(data)
     
-    correlation_matrix = data[['Usage_Duration', 'Total_Distance', 'Total_Energy_Consumed', 'Avg_Daily_Distance', 'Avg_Daily_Energy']].corr()
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
-    plt.title('Correlation Matrix of Key Variables')
-    plt.show()
+    # correlation_matrix = data[['Usage_Duration', 'Total_Distance', 'Total_Energy_Consumed', 'Avg_Daily_Distance', 'Avg_Daily_Energy']].corr()
+    # plt.figure(figsize=(10, 8))
+    # sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+    # plt.title('Correlation Matrix of Key Variables')
+    # plt.show()
     
     monthly_data = prepare_monthly_data(data)
     train, test = train_test_split(monthly_data)
